@@ -6,6 +6,9 @@ body {
     justify-content: center;
     flex: auto;
     background-color: slategray;
+    font-weight: 500;
+    font-family: sans-serif;
+    font-size: 24px;
 }
 
 
@@ -42,4 +45,43 @@ body {
 
 .buttons {
     height: 500px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    gap: 8px;
+}
+
+.clear {
+    display: flex;
+    flex-direction: row;
+    border-radius: 6px;
+    gap: 8px;
+}
+
+.reset, .delete {
+    width: 200px;
+    text-align: center;
+    padding: 8px;   
+}
+
+.reset, .delete, .button {
+    border-radius: 6px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+}
+
+.row {
+    display: flex;
+    flex: 1 1 0;
+    gap: 8px;
+}
+
+.button {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
