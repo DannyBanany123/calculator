@@ -25,17 +25,15 @@ body {
     gap: 12px;
     flex: 0 1 auto;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
 }
 
 .display {
     flex-grow: 1;
-    height: 80px;
+    height: 100px;
 }
 
 .buttons, .display {
-    width: 350px;
-    flex-shrink: 1;
     border-radius: 8px;
     border-style: solid;
     border-color: black;
