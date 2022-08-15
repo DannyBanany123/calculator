@@ -17,6 +17,7 @@ const equal = document.querySelector(".equal");
 const done = document.querySelector(".result");
 const decimal = document.querySelector(".decimal");
 const reset = document.querySelector(".reset");
+const del = document.querySelector(".delete");
 
 nums.forEach(num => {
     num.addEventListener("click", function(num) {
@@ -34,6 +35,7 @@ nums.forEach(num => {
 
 operators.forEach(op => {
     op.addEventListener("click", function(op) {
+        if (numbers[0] === "" && numbers[1] === "") return;
         onNum1 = false;
         onNum2 = true;
         operator = op.target.textContent;
@@ -57,6 +59,38 @@ equal.addEventListener("click", () => {
     done.textContent = result;
     numbers[0] = result;
     numbers[1] = "";
+    onNum1 = true;
+    onNum2 = false;
+});
+
+reset.addEventListener("click", () => {
+    numbers = ["", ""];
+    onNum1 = true;
+    onNum2 = false;
+    add = false;
+    subtract = false;
+    multiply = false;
+    divide = false;
+    operator = "";
+    result = "";
+    operations = `${numbers[0]} ${operator} ${numbers[1]}`;
+    displayEq();
+    done.textContent = "";
+});
+
+del.addEventListener("click", () => {
+    if (onNum2 === false && numbers[0] === result) return;
+    if (onNum2 === true && numbers[1] !== "") {
+        numbers[1] = numbers[1].substring(0, numbers[1].length - 1);
+    } else if (onNum2 === true && numbers[1] === "") {
+        operator = "";
+        onNum2 = false;
+        onNum1 = true;
+    } else if (onNum1 === true && operator === "") {
+        numbers[0] = numbers[0].substring(0, numbers[0].length - 1);
+    }
+    displayEq();
+    done.textContent = "";
 });
 
 function displayEq() {
@@ -80,18 +114,3 @@ function multiplication() {
 function division() {
     return +numbers[0] / +numbers[1];
 }
-
-reset.addEventListener("click", () => {
-    numbers = ["", ""];
-    onNum1 = true;
-    onNum2 = false;
-    add = false;
-    subtract = false;
-    multiply = false;
-    divide = false;
-    operator = "";
-    result = "";
-    operations = `${numbers[0]} ${operator} ${numbers[1]}`;
-    displayEq();
-    done.textContent = "";
-});
