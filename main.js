@@ -5,6 +5,8 @@ let add = false;
 let subtract = false;
 let multiply = false;
 let divide = false;
+let decimalOne = false;
+let decimalTwo = false;
 let operator = "";
 let result = "";
 let operations = `${numbers[0]} ${operator} ${numbers[1]}`;
@@ -22,12 +24,14 @@ const del = document.querySelector(".delete");
 nums.forEach(num => {
     num.addEventListener("click", function(num) {
         if (onNum1) {
+            if (numbers[0] === result) {
+                operator = "";
+                done.textContent = "";
+            }
             numbers[0] += num.target.textContent;
-            onOperator = false;
         }           
         if (onNum2) { 
             numbers[1] += num.target.textContent;
-            onOperator = false;
         }
         displayEq();
     });
@@ -91,6 +95,13 @@ del.addEventListener("click", () => {
     }
     displayEq();
     done.textContent = "";
+});
+
+decimal.addEventListener("click", () => {
+    if (done.textContent !== "") return;
+    if (onNum1 && !numbers[0].includes(".") && operator === "") numbers[0] += ".";
+    if (onNum2 && !numbers[1].includes(".")) numbers[1] += ".";
+    displayEq();
 });
 
 function displayEq() {

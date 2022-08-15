@@ -64,6 +64,7 @@ body {
 }
 
 .buttons {
+    user-select: none;
     box-sizing: border-box;
     height: 500px;
     padding: 8px;
