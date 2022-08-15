@@ -17,6 +17,7 @@ body {
     box-shadow: 6px 6px darkslategray;
     max-width: 350px;
     height: 450px;
+    max-height: max-content;
     background-color: rgb(223, 223, 223);
     border-radius: 12px;
     border-style: solid;
@@ -38,8 +39,10 @@ body {
     flex-direction: column;
     text-align: right;
     flex: auto;
-    max-height: 100px;
-    height: 100px;
+    height: 120px;
+    max-height: 120px;
+    overflow: auto;
+    overflow-wrap: break-word;
 }
 
 .equation {
