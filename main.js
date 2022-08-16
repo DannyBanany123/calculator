@@ -1,10 +1,6 @@
 let numbers = ["", ""];
 let onNum1 = true;
 let onNum2 = false;
-let add = false;
-let subtract = false;
-let multiply = false;
-let divide = false;
 let decimalOne = false;
 let decimalTwo = false;
 let operator = "";
@@ -57,6 +53,10 @@ equal.addEventListener("click", () => {
     } else if (operator === "x") {
         equals = multiplication();
     } else if (operator === "/") {
+        if (numbers[1] === 0) {
+            alert("Cannot divide by 0");
+            return;
+        }
         equals = division();
     }
     result = equals;
