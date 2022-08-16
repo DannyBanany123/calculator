@@ -54,7 +54,7 @@ function addOperator(op) {
     if (typeof op === "string") {
         operator = op;
     } else {
-        operator = op.target.textContent;
+        operator = op.textContent;
     }
     displayEq();
 }
@@ -129,15 +129,16 @@ function calculate() {
 }
 
 function back() {
-    if (onNum2 === false && numbers[0] === result) return;
+    // if (onNum2 === false && numbers[0] === result) return;
+    console.log(onNum1, onNum2);
     if (onNum2 === true && numbers[1] !== "") {
         numbers[1] = numbers[1].substring(0, numbers[1].length - 1);
-    } else if (onNum2 === true && numbers[1] === "") {
+    } else if (numbers[1] === "" && operator !== "") {
         operator = "";
         onNum2 = false;
         onNum1 = true;
     } else if (onNum1 === true && operator === "") {
-        numbers[0] = numbers[0].substring(0, numbers[0].length - 1);
+        numbers[0] = numbers[0].toString().substring(0, numbers[0].toString().length - 1);
     }
     displayEq();
     done.textContent = "";
