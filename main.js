@@ -18,54 +18,48 @@ const reset = document.querySelector(".reset");
 const del = document.querySelector(".delete");
 
 nums.forEach(num => {
-    num.addEventListener("click", function(num) {
-        if (onNum1) {
-            if (numbers[0] === result) {
-                operator = "";
-                done.textContent = "";
-            }
-            numbers[0] += num.target.textContent;
-        }           
-        if (onNum2) { 
-            numbers[1] += num.target.textContent;
+    num.addEventListener("click", () => appendNum(num));
+});    
+
+function appendNum(num) {
+    if (onNum1) {
+        if (numbers[0] === result) {
+            operator = "";
+            done.textContent = "";
         }
-        displayEq();
-    });
-});
+        if (typeof num === "string") {
+            numbers[0] += num;
+        } else {
+            numbers[0] += num.textContent;
+        }
+    }           
+    if (onNum2) { 
+        if (typeof num === "string") {
+            numbers[1] += num;
+        } else {
+            numbers[1] += num.textContent;
+        }
+    }
+    displayEq();
+}
 
 operators.forEach(op => {
-    op.addEventListener("click", function(op) {
-        if (numbers[0] === "" && numbers[1] === "") return;
-        onNum1 = false;
-        onNum2 = true;
-        operator = op.target.textContent;
-        displayEq();
-    })
+    op.addEventListener("click", () => addOperator(op));
 });
 
-equal.addEventListener("click", () => {
-    if (numbers[1] === "") return;
-    let equals;
-    if (operator === "+") {
-        equals = addition();
-    } else if (operator === "-") {
-        equals = subtraction();
-    } else if (operator === "x") {
-        equals = multiplication();
-    } else if (operator === "/") {
-        if (numbers[1] === 0) {
-            alert("Cannot divide by 0");
-            return;
-        }
-        equals = division();
+function addOperator(op) {
+    if (numbers[0] === "" && numbers[1] === "") return;
+    onNum1 = false;
+    onNum2 = true;
+    if (typeof op === "string") {
+        operator = op;
+    } else {
+        operator = op.target.textContent;
     }
-    result = equals;
-    done.textContent = result;
-    numbers[0] = result;
-    numbers[1] = "";
-    onNum1 = true;
-    onNum2 = false;
-});
+    displayEq();
+}
+
+equal.addEventListener("click", calculate);
 
 reset.addEventListener("click", () => {
     numbers = ["", ""];
@@ -82,27 +76,9 @@ reset.addEventListener("click", () => {
     done.textContent = "";
 });
 
-del.addEventListener("click", () => {
-    if (onNum2 === false && numbers[0] === result) return;
-    if (onNum2 === true && numbers[1] !== "") {
-        numbers[1] = numbers[1].substring(0, numbers[1].length - 1);
-    } else if (onNum2 === true && numbers[1] === "") {
-        operator = "";
-        onNum2 = false;
-        onNum1 = true;
-    } else if (onNum1 === true && operator === "") {
-        numbers[0] = numbers[0].substring(0, numbers[0].length - 1);
-    }
-    displayEq();
-    done.textContent = "";
-});
+del.addEventListener("click", back);
 
-decimal.addEventListener("click", () => {
-    if (done.textContent !== "") return;
-    if (onNum1 && !numbers[0].includes(".") && operator === "") numbers[0] += ".";
-    if (onNum2 && !numbers[1].includes(".")) numbers[1] += ".";
-    displayEq();
-});
+decimal.addEventListener("click", addDecimal);
 
 function displayEq() {
     operations = `${numbers[0]} ${operator} ${numbers[1]}`;
@@ -125,3 +101,62 @@ function multiplication() {
 function division() {
     return +numbers[0] / +numbers[1];
 }
+
+function calculate() {
+    if (numbers[1] === "") return;
+    let equals;
+    if (operator === "+") {
+        equals = addition();
+    } else if (operator === "-") {
+        equals = subtraction();
+    } else if (operator === "x") {
+        equals = multiplication();
+    } else if (operator === "/") {
+        if (numbers[1] === 0) {
+            alert("Cannot divide by 0");
+            return;
+        }
+        equals = division();
+    }
+    result = equals;
+    // Round to 3 decimal places if using floating point numbers
+    if (result.toString().includes(".")) result = result.toFixed(3);
+    done.textContent = result;
+    numbers[0] = result;
+    numbers[1] = "";
+    onNum1 = true;
+    onNum2 = false;
+}
+
+function back() {
+    if (onNum2 === false && numbers[0] === result) return;
+    if (onNum2 === true && numbers[1] !== "") {
+        numbers[1] = numbers[1].substring(0, numbers[1].length - 1);
+    } else if (onNum2 === true && numbers[1] === "") {
+        operator = "";
+        onNum2 = false;
+        onNum1 = true;
+    } else if (onNum1 === true && operator === "") {
+        numbers[0] = numbers[0].substring(0, numbers[0].length - 1);
+    }
+    displayEq();
+    done.textContent = "";
+}
+
+function addDecimal() {
+    if (done.textContent !== "") return;
+    if (onNum1 && !numbers[0].includes(".") && operator === "") numbers[0] += ".";
+    if (onNum2 && !numbers[1].includes(".")) numbers[1] += ".";
+    displayEq();
+}
+
+// Keyboard support
+document.addEventListener("keyup", function(e) {
+    let numberBank = "1234567890";
+    let operatorBank = "+-/x";
+    if (operatorBank.includes(e.key)) addOperator(e.key);
+    if (numberBank.includes(e.key)) appendNum(e.key);
+    if (e.key === "Enter") calculate();
+    if (e.key === "Backspace") back();
+    if (e.key === ".") addDecimal();
+});
