@@ -5,20 +5,19 @@ body {
     display: flex;
     justify-content: center;
     flex: auto;
-    background-color: slategray;
+    background-color: gray;
     font-weight: 500;
     font-family: sans-serif;
     font-size: 24px;
 }
 
-
 .container {
     margin-top: 125px;
-    box-shadow: 6px 6px darkslategray;
+    box-shadow: 10px 10px rgb(75, 217, 253);
     max-width: 350px;
     height: 450px;
     max-height: max-content;
-    background-color: rgb(223, 223, 223);
+    background-color: white;
     border-radius: 12px;
     border-style: solid;
     border-color: black;
@@ -32,22 +31,9 @@ body {
     flex: auto;
 }
 
-.display {
-    box-sizing: border-box;
-    padding: 8px 12px;
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    flex: auto;
-    height: 120px;
-    max-height: 120px;
-    overflow: auto;
-    overflow-wrap: break-word;
-}
-
 .equation {
     font-size: 24px;
-    color: darkslategray;
+    color: rgb(253, 75, 110);
 }
 
 .result {
@@ -60,7 +46,21 @@ body {
     border-color: black;
     border-width: 3px;
     box-sizing: border-box;
-    background-color: white;
+    background-color: rgb(216, 216, 216);
+}
+
+.display {
+    box-sizing: border-box;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    flex: auto;
+    height: 120px;
+    max-height: 120px;
+    overflow: auto;
+    overflow-wrap: break-word;
+    background-color: rgb(216, 216, 216);
 }
 
 .buttons {
@@ -81,22 +81,35 @@ body {
     gap: 8px;
 }
 
-.reset, .delete {
-    width: 200px;
-    text-align: center;
-    padding: 8px;
-}
-
 .reset, .delete, .num, .operator, .decimal, .equal {
-    background-color: lightgray;
+    background-color: white;
     border-radius: 6px;
     border-style: solid;
     border-color: black;
     border-width: 3px;
 }
 
-.reset:hover, .delete:hover, .num:hover, .operator:hover, .decimal:hover, .equal:hover {
-    background-color: darkgray;
+.reset, .delete {
+    width: 200px;
+    text-align: center;
+    padding: 8px;
+    background-color: rgb(253, 75, 110);
+}
+
+.num {
+    background-color: white;
+}
+
+.operator:hover, .decimal:hover, .equal:hover {
+    background-color: lightgray;
+}
+
+.reset:hover, .delete:hover {
+    background-color: rgb(172, 46, 71)
+}
+
+.num:hover {
+    background-color: lightgray
 }
 
 .row {
@@ -111,8 +124,4 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.operator, .decimal, .equal {
-    color: darkslategray;
 }
