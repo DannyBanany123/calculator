@@ -112,7 +112,7 @@ function calculate() {
     } else if (operator === "x") {
         equals = multiplication();
     } else if (operator === "/") {
-        if (numbers[1] === 0) {
+        if (+numbers[1] === 0 || +numbers[1] === 0.0) {
             alert("Cannot divide by 0");
             return;
         }
